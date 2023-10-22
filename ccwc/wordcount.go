@@ -11,6 +11,7 @@ import (
 func main() {
 	var isCount bool
 	var isLine bool
+	var isWord bool
 	app := &cli.App{
 		Name:  "ccwc",
 		Usage: "wc for coding challenge",
@@ -25,10 +26,19 @@ func main() {
 				Usage:       "Count the number of lines in the file",
 				Destination: &isLine,
 			},
+			&cli.BoolFlag{
+				Name:        "word, w",
+				Usage:       "Count the words in the file",
+				Destination: &isWord,
+			},
 		},
 		Action: func(ctx *cli.Context) error {
 			filepath := ctx.Args().Get(0)
 			file, err := os.Open(filepath)
+			if err != nil {
+				return err
+			}
+			dat, err := os.ReadFile(filepath)
 			if err != nil {
 				return err
 			}
@@ -42,7 +52,11 @@ func main() {
 			}
 
 			if isLine {
-				fmt.Println(getLineCount(filepath), file.Name())
+				fmt.Println(getLineCount(dat), file.Name())
+			}
+
+			if isWord {
+				fmt.Println(getWordCount(dat), file.Name())
 			}
 
 			return nil
