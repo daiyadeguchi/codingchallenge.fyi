@@ -39,15 +39,7 @@ func main() {
 			}
 
 			if isLine {
-				dat, _ := os.ReadFile(filepath)
-				content := string(dat)
-				lineCount := 0
-				for _, line := range content {
-					if line == '\n' {
-						lineCount++
-					}
-				}
-				fmt.Println(lineCount, file.Name())
+				fmt.Println(getLineCount(filepath), file.Name())
 			}
 
 			return nil
