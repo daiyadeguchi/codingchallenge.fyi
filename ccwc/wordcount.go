@@ -9,9 +9,17 @@ import (
 )
 
 func main() {
+	var isCount bool
 	app := &cli.App{
 		Name:  "ccwc",
 		Usage: "wc for coding challenge",
+		Flags: []cli.Flag{
+			&cli.BoolFlag{
+				Name:        "count, c",
+				Usage:       "Count the size of the file",
+				Destination: &isCount,
+			},
+		},
 		Action: func(ctx *cli.Context) error {
 			filepath := ctx.Args().Get(0)
 			file, err := os.Open(filepath)
@@ -19,8 +27,10 @@ func main() {
 				log.Fatal(err)
 			}
 
-			stat, err := file.Stat()
-			fmt.Printf("size of file is %d", stat.Size())
+			if isCount {
+				stat, _ := file.Stat()
+				fmt.Println(stat.Size(), file.Name())
+			}
 
 			return nil
 		},
