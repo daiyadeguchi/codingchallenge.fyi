@@ -14,11 +14,14 @@ func main() {
 		Usage: "wc for coding challenge",
 		Action: func(ctx *cli.Context) error {
 			filepath := ctx.Args().Get(0)
-			dat, err := os.ReadFile(filepath)
+			file, err := os.Open(filepath)
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Print(string(dat))
+
+			stat, err := file.Stat()
+			fmt.Printf("size of file is %d", stat.Size())
+
 			return nil
 		},
 	}
