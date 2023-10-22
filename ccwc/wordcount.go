@@ -10,6 +10,7 @@ import (
 
 func main() {
 	var isCount bool
+	var isLine bool
 	app := &cli.App{
 		Name:  "ccwc",
 		Usage: "wc for coding challenge",
@@ -18,6 +19,11 @@ func main() {
 				Name:        "count, c",
 				Usage:       "Count the size of the file",
 				Destination: &isCount,
+			},
+			&cli.BoolFlag{
+				Name:        "line, l",
+				Usage:       "Count the number of lines in the file",
+				Destination: &isLine,
 			},
 		},
 		Action: func(ctx *cli.Context) error {
@@ -30,6 +36,18 @@ func main() {
 			if isCount {
 				stat, _ := file.Stat()
 				fmt.Println(stat.Size(), file.Name())
+			}
+
+			if isLine {
+				dat, _ := os.ReadFile(filepath)
+				content := string(dat)
+				lineCount := 0
+				for _, line := range content {
+					if line == '\n' {
+						lineCount++
+					}
+				}
+				fmt.Println(lineCount, file.Name())
 			}
 
 			return nil
