@@ -30,11 +30,14 @@ func main() {
 			filepath := ctx.Args().Get(0)
 			file, err := os.Open(filepath)
 			if err != nil {
-				log.Fatal(err)
+				return err
 			}
 
 			if isCount {
-				stat, _ := file.Stat()
+				stat, err := file.Stat()
+				if err != nil {
+					return err
+				}
 				fmt.Println(stat.Size(), file.Name())
 			}
 
