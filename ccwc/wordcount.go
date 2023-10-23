@@ -12,6 +12,7 @@ func main() {
 	var isCount bool
 	var isLine bool
 	var isWord bool
+	var isCharacter bool
 	app := &cli.App{
 		Name:  "ccwc",
 		Usage: "wc for coding challenge",
@@ -30,6 +31,11 @@ func main() {
 				Name:        "word, w",
 				Usage:       "Count the words in the file",
 				Destination: &isWord,
+			},
+			&cli.BoolFlag{
+				Name:        "m",
+				Usage:       "Count the characters in the file",
+				Destination: &isCharacter,
 			},
 		},
 		Action: func(ctx *cli.Context) error {
@@ -57,6 +63,10 @@ func main() {
 
 			if isWord {
 				fmt.Println(getWordCount(dat), file.Name())
+			}
+
+			if isCharacter {
+				fmt.Println(getCharcterCount(dat), file.Name())
 			}
 
 			return nil

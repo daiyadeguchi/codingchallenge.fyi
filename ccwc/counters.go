@@ -20,3 +20,12 @@ func getWordCount(dat []byte) int {
 	wordCount := len(content)
 	return wordCount
 }
+
+func getCharcterCount(dat []byte) int {
+	content := string(dat)
+	charCount := 0
+	for range content {
+		charCount++
+	}
+	return charCount
+}
