@@ -21,7 +21,7 @@ func getWordCount(dat []byte) int {
 	return wordCount
 }
 
-func getCharcterCount(dat []byte) int {
+func getCharacterCount(dat []byte) int {
 	content := string(dat)
 	charCount := 0
 	for range content {

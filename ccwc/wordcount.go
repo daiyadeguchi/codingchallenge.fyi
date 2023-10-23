@@ -59,14 +59,12 @@ func main() {
 
 			if isLine {
 				fmt.Println(getLineCount(dat), file.Name())
-			}
-
-			if isWord {
+			} else if isWord {
 				fmt.Println(getWordCount(dat), file.Name())
-			}
-
-			if isCharacter {
-				fmt.Println(getCharcterCount(dat), file.Name())
+			} else if isCharacter {
+				fmt.Println(getCharacterCount(dat), file.Name())
+			} else {
+				fmt.Println(getLineCount(dat), getWordCount(dat), getCharacterCount(dat), file.Name())
 			}
 
 			return nil
