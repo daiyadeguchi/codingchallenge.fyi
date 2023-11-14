@@ -31,7 +31,6 @@ def parseJson(file: str):
 	content = content.replace('}', '')
 	content = content.replace('\n', '')
 	content = content.replace(' ', '')
-	#content = content.replace('"', '')
 	content = content.split(',')
 
 	json = {}	
@@ -39,14 +38,15 @@ def parseJson(file: str):
 		c = c.split(":")
 		c[0] = c[0].replace('"', '')
 
+		# conversion
 		if c[1] in {"true", "false"}:
 			c[1] = boolify(c[1])
-
-		if type(c[1]) != bool and c[1].isdigit():
+		elif type(c[1]) != bool and c[1].isdigit():
 			c[1] = int(c[1])
-
-		if c[1] == "null":
+		elif c[1] == "null":
 			c[1] = None
+		else:	
+			c[1] = c[1].replace('"', '')
 
 		json[c[0]] = c[1]
 
