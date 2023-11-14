@@ -25,12 +25,14 @@ def parseJson(file: str):
 	content = content.replace('}', '')
 	content = content.replace('\n', '')
 	content = content.replace(' ', '')
-	content = content.replace('"', '')
+	#content = content.replace('"', '')
 	content = content.split(',')
 
 	json = {}	
 	for c in content:
 		c = c.split(":")
+		c[0] = c[0].replace('"', '')
+		print(c)
 		json[c[0]] = c[1]
 
 	return 0
