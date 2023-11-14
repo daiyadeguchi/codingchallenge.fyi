@@ -1,23 +1,26 @@
 import typer
 
-def isValid(content: str) -> int:
-	stack = []
+def isValid(content: str) -> bool:
 	if not content:
-		return 1
+		return False 
 
+	stack = []
 	for c in content:
-		if c in '{':
+		if c == '{':
 			stack.append(c)
 		else:
 			if not stack or (c == '}' and stack[-1] != '{'):
-				return 1
-			stack.pop()
-			
-	return 0
+				return False 
+	return True
 	
 def parseJson(file: str) -> int:
 	file = open(file, "r")
-	print(isValid(file.read()))
-	return isValid(file.read())
+	content = file.read()
+	# check if the file is valid json format
+	if not isValid(content):
+		return 1
+
+	print(content)
+	return 0
 
 typer.run(parseJson)
