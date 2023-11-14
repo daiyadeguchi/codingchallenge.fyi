@@ -1,6 +1,6 @@
 import typer
 
-def isValid(content: str) -> bool:
+def isValid(content: str):
 	if not content:
 		return False 
 
@@ -13,14 +13,26 @@ def isValid(content: str) -> bool:
 				return False 
 	return True
 	
-def parseJson(file: str) -> int:
+def parseJson(file: str):
 	file = open(file, "r")
 	content = file.read()
 	# check if the file is valid json format
 	if not isValid(content):
 		return 1
 
-	print(content)
+  # clean the content. It sucks.
+	content = content.replace('{', '')
+	content = content.replace('}', '')
+	content = content.replace('\n', '')
+	content = content.replace(' ', '')
+	content = content.replace('"', '')
+	content = content.split(',')
+
+	json = {}	
+	for c in content:
+		c = c.split(":")
+		json[c[0]] = c[1]
+
 	return 0
 
 typer.run(parseJson)
