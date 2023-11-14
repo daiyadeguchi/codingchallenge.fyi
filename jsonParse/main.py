@@ -12,6 +12,12 @@ def isValid(content: str):
 			if not stack or (c == '}' and stack[-1] != '{'):
 				return False 
 	return True
+
+def boolify(s: str):
+	if s.lower() == "true":
+		return True
+	elif s.lower() == "false":
+		return False
 	
 def parseJson(file: str):
 	file = open(file, "r")
@@ -32,8 +38,10 @@ def parseJson(file: str):
 	for c in content:
 		c = c.split(":")
 		c[0] = c[0].replace('"', '')
-		print(c)
+		c[1] = boolify(c[1])
 		json[c[0]] = c[1]
+
+	print(json)
 
 	return 0
 
